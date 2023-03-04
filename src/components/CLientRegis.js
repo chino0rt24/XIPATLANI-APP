@@ -8,6 +8,7 @@ import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import Card from '@mui/material/Card';
 import Cobros from '../components/Cobros';
+import useForm from '../components/hooks/useForm';
 
 
 
@@ -16,16 +17,11 @@ const theme = createTheme();
 
 export default function CLientRegis() {
   const [selectedPack,setSelectedPack] = useState(false);
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get('email'),
-      password: data.get('password'),
-    });
+ const { form, onChange } = useForm({  });
+  const save = async ()=>{
+    console.log(form)
+  }
 
-  };
- 
    
   
 
@@ -40,7 +36,7 @@ export default function CLientRegis() {
         <CssBaseline />
     
         
-        <Card  onSubmit={handleSubmit} noValidate sx={{ mt: 1, display:"flex", flexWrap:"wrap" ,justifyContent:"space-around", flex:1, borderRadius:5 ,width: selectedPack !== true ? 550: 750,height:650,}}>
+        <Card   noValidate sx={{ mt: 1, display:"flex", flexWrap:"wrap" ,justifyContent:"space-around", flex:1, borderRadius:5 ,width: selectedPack !== true ? 550: 750,height:650,}}>
           <Box 
           sx={{padding:3 , marginInline:4}}
           >
@@ -64,6 +60,9 @@ export default function CLientRegis() {
               autoComplete="Nombre"
               autoFocus
               sx={{width:250}}
+              onChange={value => onChange(value.target.value,"name")
+                
+              }
             />
                 <TextField
               margin="normal"
@@ -75,6 +74,8 @@ export default function CLientRegis() {
               autoComplete="Apellidos"
               autoFocus
               sx={{width:250}}
+              onChange={value => onChange(value.target.value,"lastName")}
+
             />
              <TextField
               margin="normal"
@@ -86,6 +87,7 @@ export default function CLientRegis() {
               autoComplete="Correo Electronico"
               autoFocus
               sx={{justifyContent:"space-around", marginLeft:1.5, marginRight:1.5}}
+              onChange={value => onChange(value.target.value,"email")}
 
             />
                 <TextField
@@ -97,6 +99,7 @@ export default function CLientRegis() {
               autoComplete="Telefono"
               autoFocus
               sx={{width:250}}
+              onChange={value => onChange(value.target.value,"phone")}
 
             />
                 <TextField
@@ -108,6 +111,7 @@ export default function CLientRegis() {
               autoComplete="Código Postal"
               autoFocus
               sx={{width:250}}
+              onChange={value => onChange(value.target.value,"cp")}
             />
                
              <TextField
@@ -120,6 +124,7 @@ export default function CLientRegis() {
               autoComplete="Ciudad o Localidad"
               autoFocus
               sx={{justifyContent:"space-around", marginLeft:1.5, marginRight:1.5}}
+              onChange={value => onChange(value.target.value,"CiudadLocalidad")}
 
             />
          
@@ -133,6 +138,8 @@ export default function CLientRegis() {
               autoComplete="Referencia"
               autoFocus
               sx={{justifyContent:"space-around", marginLeft:1.5, marginRight:1.5}}
+              onChange={value => onChange(value.target.value,"referencia")}
+              
 
 
             />
@@ -143,12 +150,17 @@ export default function CLientRegis() {
               type="save"
               variant="contained"
               sx={{ mt: 2, mb: 3, width:200, marginLeft:1,borderRadius:5, }}
-              onClick={() => setSelectedPack(true)}
+              onClick={() =>{ 
+              setSelectedPack(true); 
+              save();
+              
+              }}
               >
             
               Siguiente
             </Button> 
-            </Box> :  <Cobros/>
+            
+            </Box> :  <Cobros form={form}/>
             
          
 
