@@ -12,19 +12,16 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+import useForm from '../components/hooks/useForm';
 
 
 
 const theme = createTheme();
 
 export default function Login() {
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get('email'),
-      password: data.get('password'),
-    });
+  const { form, onChange } = useForm({  });
+  const save = async ()=>{
+    console.log(form)
   };
 
   return (
@@ -48,7 +45,7 @@ export default function Login() {
           <Typography component="h1" variant="h5">
             Sign in
           </Typography>
-          <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
+          <Box component="form"  noValidate sx={{ mt: 1 }}>
             <TextField
               margin="normal"
               required
@@ -58,6 +55,8 @@ export default function Login() {
               name="email"
               autoComplete="email"
               autoFocus
+              onChange={value => onChange(value.target.value,"email")}
+
             />
             <TextField
               margin="normal"
@@ -68,17 +67,19 @@ export default function Login() {
               type="password"
               id="password"
               autoComplete="current-password"
+              onChange={value => onChange(value.target.value,"password")}
+
             />
             <FormControlLabel
               control={<Checkbox value="remember" color="primary" />}
               label="Remember me"
             />
             <Button
-              type="submit"
               fullWidth
               variant="contained"
               sx={{ mt: 3, mb: 2 }}
-            >
+              onClick={() =>save()}
+              >
               Sign In
             </Button>
             <Grid container>
