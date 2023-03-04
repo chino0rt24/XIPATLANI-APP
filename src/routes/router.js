@@ -23,6 +23,11 @@ const router = createBrowserRouter([
         path:"CLientRegis",
         element:<CLientRegis/>
       },
+      {
+        path: "map",
+        element: <Map/>
+      },
+    
 
     ]
   },

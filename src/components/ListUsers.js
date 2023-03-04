@@ -1,53 +1,160 @@
 import * as React from 'react';
-import Box from '@mui/material/Box';
-import List from '@mui/material/List';
-import ListItem from '@mui/material/ListItem';
-import ListItemButton from '@mui/material/ListItemButton';
-import ListItemIcon from '@mui/material/ListItemIcon';
-import ListItemText from '@mui/material/ListItemText';
-import Divider from '@mui/material/Divider';
-import InboxIcon from '@mui/icons-material/Inbox';
-import DraftsIcon from '@mui/icons-material/Drafts';
+import Paper from '@mui/material/Paper';
+import Table from '@mui/material/Table';
+import TableBody from '@mui/material/TableBody';
+import TableCell from '@mui/material/TableCell';
+import TableContainer from '@mui/material/TableContainer';
+import TableHead from '@mui/material/TableHead';
+import TablePagination from '@mui/material/TablePagination';
+import TableRow from '@mui/material/TableRow';
+import ToggleButton from '@mui/material/ToggleButton';
+import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
 
- const BasicList = () => {
+const columns = [
+  { id: 'name', label: 'Cliente', minWidth: 170 },
+  { id: 'code', label: 'ISO\u00a0Code', minWidth: 100 },
+  {
+    id: 'population',
+    label: 'Fecha de corte',
+    minWidth: 170,
+    align: 'right',
+    format: (value) => value.toLocaleString('en-US'),
+  },
+  {
+    id: 'size',
+    label: 'Monto de pago$',
+    minWidth: 170,
+    align: 'right',
+    format: (value) => value.toLocaleString('en-US'),
+  },
+  {
+    id: 'Density',
+    label: 'Teléfono',
+    minWidth: 170,
+    align: 'right',
+    format: (value) => value.toFixed(2),
+
+  },
+  {
+    id: '123131',
+    label: 'Domicilio',
+    minWidth: 170,
+    align: 'right',
+    format: (value) => value.toFixed(2),
+
+  },
+  
+];
+
+function createData(name, code, population, size) {
+  const density = population / size;
+  return { name, code, population, size, density };
+}
+
+const rows = [
+  createData('India', 'IN', 1324171354, 3287263),
+  createData('China', 'CN', 1403500365, 9596961),
+  createData('Italy', 'IT', 60483973, 301340),
+  createData('United States', 'US', 327167434, 9833520),
+  createData('Canada', 'CA', 37602103, 9984670),
+  createData('Australia', 'AU', 25475400, 7692024),
+  createData('Germany', 'DE', 83019200, 357578),
+  createData('Ireland', 'IE', 4857000, 70273),
+  createData('Mexico', 'MX', 126577691, 1972550),
+  createData('Japan', 'JP', 126317000, 377973),
+  createData('France', 'FR', 67022000, 640679),
+  createData('United Kingdom', 'GB', 67545757, 242495),
+  createData('Russia', 'RU', 146793744, 17098246),
+  createData('Nigeria', 'NG', 200962417, 923768),
+  createData('Brazil', 'BR', 210147125, 8515767),
+];
+
+const StickyHeadTable = () => {
+  const [page, setPage] = React.useState(0);
+  const [rowsPerPage, setRowsPerPage] = React.useState(20);
+
+  const handleChangePage = (event, newPage) => {
+    setPage(newPage);
+  };
+
+  const handleChangeRowsPerPage = (event) => {
+    setRowsPerPage(+event.target.value);
+    setPage(0);
+  };
+
+  const ColorToggleButton = () => {
+    const [alignment, setAlignment] = React.useState('web');
+  
+    const handleChange = (event, newAlignment) => {
+      setAlignment(newAlignment);
+    };
+  
+    return (
+      <ToggleButtonGroup
+        color="primary"
+        value={alignment}
+        exclusive
+        onChange={handleChange}
+        aria-label="Platform"
+        sx={{alignSelf:'flex-end'}}
+      >
+        <ToggleButton value="web">Web</ToggleButton>
+        <ToggleButton value="android">Android</ToggleButton>
+      </ToggleButtonGroup>
+    );
+  }
+
   return (
-    <Box sx={{ width:"80%", bgcolor: 'background.paper' }}>
-      <nav aria-label="main mailbox folders">
-        <List>
-          <ListItem disablePadding>
-            <ListItemButton>
-              <ListItemIcon>
-                <InboxIcon />
-              </ListItemIcon>
-              <ListItemText primary="Inbox" />
-            </ListItemButton>
-          </ListItem>
-          <ListItem disablePadding>
-            <ListItemButton>
-              <ListItemIcon>
-                <DraftsIcon />
-              </ListItemIcon>
-              <ListItemText primary="Drafts" />
-            </ListItemButton>
-          </ListItem>
-        </List>
-      </nav>
-      <Divider />
-      <nav aria-label="secondary mailbox folders">
-        <List>
-          <ListItem disablePadding>
-            <ListItemButton>
-              <ListItemText primary="Trash" />
-            </ListItemButton>
-          </ListItem>
-          <ListItem disablePadding>
-            <ListItemButton component="a" href="#simple-list">
-              <ListItemText primary="Spam" />
-            </ListItemButton>
-          </ListItem>
-        </List>
-      </nav>
-    </Box>
+    <Paper sx={{ width: '100%', display:'flex', flexDirection:'column', overflow: 'hidden' }}>
+      <ColorToggleButton />
+      <TableContainer sx={{ maxHeight:500}}>
+        <Table stickyHeader aria-label="sticky table">
+          <TableHead>
+            <TableRow>
+              {columns.map((column) => (
+                <TableCell
+                  key={column.id}
+                  align={column.align}
+                  style={{ minWidth: column.minWidth }}
+                >
+                  {column.label}
+                </TableCell>
+              ))}
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            {rows
+              .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+              .map((row) => {
+                return (
+                  <TableRow hover role="checkbox" tabIndex={-1} key={row.code}>
+                    {columns.map((column) => {
+                      const value = row[column.id];
+                      return (
+                        <TableCell key={column.id} align={column.align}>
+                          {column.format && typeof value === 'number'
+                            ? column.format(value)
+                            : value}
+                        </TableCell>
+                      );
+                    })}
+                  </TableRow>
+                );
+              })}
+          </TableBody>
+        </Table>
+      </TableContainer>
+      <TablePagination
+        rowsPerPageOptions={[10, 40, 100]}
+        component="div"
+        count={rows.length}
+        rowsPerPage={rowsPerPage}
+        page={page}
+        onPageChange={handleChangePage}
+        onRowsPerPageChange={handleChangeRowsPerPage}
+      />
+    </Paper>
   );
 }
-export default BasicList;
+
+export default StickyHeadTable

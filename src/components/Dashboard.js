@@ -125,7 +125,7 @@ function DashboardContent() {
           </Toolbar>
           <Divider />
           <List component="nav">
-            {mainListItems}
+            {mainListItems }
             <Divider sx={{ my: 1 }} />
             {secondaryListItems}
           </List>
@@ -143,7 +143,7 @@ function DashboardContent() {
           }}
         >
           <Toolbar />
-          <Box sx={{ marginRight:.5, flex:1, backgroundColor:'gray', borderRadius:3, marginTop:7}} >
+          <Box sx={{ marginRight:.5, flex:1, backgroundColor:'gray', borderRadius:3, marginTop:1}} >
         <Outlet/>
         </Box>
         </Box>
