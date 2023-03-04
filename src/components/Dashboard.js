@@ -15,7 +15,7 @@ import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import { MainListItems, secondaryListItems } from './listItems';
 import { Outlet } from 'react-router-dom';
-
+import { useNavigate } from 'react-router-dom';
 
 
 const drawerWidth = 240;
@@ -66,8 +66,9 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
 
 const mdTheme = createTheme();
 
-function DashboardContent() {
+const  DashboardContent = () => {
   const [open, setOpen] = React.useState(true);
+  const navigate = useNavigate();
   const toggleDrawer = () => {
     setOpen(!open);
   };
@@ -125,7 +126,7 @@ function DashboardContent() {
           </Toolbar>
           <Divider />
           <List component="nav">
-            {MainListItems }
+            <MainListItems navigate={navigate} />
             <Divider sx={{ my: 1 }} />
             {secondaryListItems}
           </List>
@@ -154,5 +155,6 @@ function DashboardContent() {
 }
 
 export default function Dashboard() {
-  return <DashboardContent />;
+
+  return <DashboardContent/>;
 }

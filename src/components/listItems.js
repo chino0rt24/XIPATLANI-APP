@@ -11,46 +11,49 @@ import PublicIcon from '@mui/icons-material/Public';
 import AssignmentIcon from '@mui/icons-material/Assignment';
 import AssignmentIndIcon from '@mui/icons-material/AssignmentInd';
 
-export const MainListItems = (
-  <React.Fragment>
-    <ListItemButton>
-      <ListItemIcon>
-        <DashboardIcon />
-      </ListItemIcon>
-      <ListItemText primary="INICIO" />
-    </ListItemButton>
-    <ListItemButton>
-      <ListItemIcon>
-        <PriceChangeIcon />
-      </ListItemIcon>
-      <ListItemText primary="COBROS" />
-    </ListItemButton>
-    <ListItemButton>
-      <ListItemIcon>
-        <GroupsIcon />
-      </ListItemIcon>
-      <ListItemText primary="Clientes" />
-    </ListItemButton>
-    <ListItemButton>
-      <ListItemIcon>
-        <BarChartIcon />
-      </ListItemIcon>
-      <ListItemText primary="Reportes" />
-    </ListItemButton>
-    <ListItemButton>
-      <ListItemIcon>
-        <PublicIcon />
-      </ListItemIcon>
-      <ListItemText primary="Mapa" />
-    </ListItemButton>
-    <ListItemButton>
-      <ListItemIcon>
-      <AssignmentIndIcon/>
-      </ListItemIcon>
-      <ListItemText primary="Login" />
-    </ListItemButton>
-  </React.Fragment>
-);
+export const MainListItems = ({navigate}) =>
+{
+  return(
+    <React.Fragment>
+      <ListItemButton  onClick={() => navigate('/home')} >
+        <ListItemIcon>
+          <DashboardIcon />
+        </ListItemIcon>
+        <ListItemText primary="INICIO" />
+      </ListItemButton>
+      <ListItemButton  onClick={() => navigate('/home')} >
+        <ListItemIcon>
+          <PriceChangeIcon />
+        </ListItemIcon>
+        <ListItemText primary="COBROS" />
+      </ListItemButton>
+      <ListItemButton  onClick={() => navigate('/users')} >
+        <ListItemIcon>
+          <GroupsIcon />
+        </ListItemIcon>
+        <ListItemText primary="Clientes" />
+      </ListItemButton>
+      <ListItemButton>
+        <ListItemIcon>
+          <BarChartIcon />
+        </ListItemIcon>
+        <ListItemText primary="Reportes" />
+      </ListItemButton>
+      <ListItemButton  onClick={() => navigate('/map')} >
+        <ListItemIcon>
+          <PublicIcon />
+        </ListItemIcon>
+        <ListItemText primary="Mapa" />
+      </ListItemButton>
+      <ListItemButton>
+        <ListItemIcon>
+        <AssignmentIndIcon/>
+        </ListItemIcon>
+        <ListItemText primary="Login" />
+      </ListItemButton>
+    </React.Fragment>
+  );
+}
 
 export const secondaryListItems = (
   <React.Fragment>
