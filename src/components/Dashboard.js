@@ -13,7 +13,7 @@ import Badge from '@mui/material/Badge';
 import MenuIcon from '@mui/icons-material/Menu';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import NotificationsIcon from '@mui/icons-material/Notifications';
-import { mainListItems, secondaryListItems } from './listItems';
+import { MainListItems, secondaryListItems } from './listItems';
 import { Outlet } from 'react-router-dom';
 
 
@@ -125,7 +125,7 @@ function DashboardContent() {
           </Toolbar>
           <Divider />
           <List component="nav">
-            {mainListItems }
+            {MainListItems }
             <Divider sx={{ my: 1 }} />
             {secondaryListItems}
           </List>

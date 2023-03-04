@@ -6,7 +6,7 @@ import Login from "../components/Login";
 import { Dashboard, ListUsers } from "../components";
 import Home from "../components/Home";
 import CLientRegis from "../components/CLientRegis";
-import Map from "../components";
+import Map from "../components/Map";
 const router = createBrowserRouter([
   {
     path: "/",
