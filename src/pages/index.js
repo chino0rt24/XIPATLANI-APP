@@ -1,3 +1,3 @@
 export * from './Login';
-export * from './Home';
+export {Home as default} from '../components/Home'
 export * from './NewUser';
