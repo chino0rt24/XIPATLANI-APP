@@ -10,15 +10,10 @@ import BarChartIcon from '@mui/icons-material/BarChart';
 import PublicIcon from '@mui/icons-material/Public';
 import AssignmentIcon from '@mui/icons-material/Assignment';
 import AssignmentIndIcon from '@mui/icons-material/AssignmentInd';
-import { useNavigate } from 'react-router-dom';
 
-export const MainListItems =()=>{
-  const navigate = useNavigate();
+export const MainListItems = (
   <React.Fragment>
-    <ListItemButton
-    onClick={()=>{ console.log("aplastando")
-
-    }}>
+    <ListItemButton>
       <ListItemIcon>
         <DashboardIcon />
       </ListItemIcon>
@@ -55,7 +50,7 @@ export const MainListItems =()=>{
       <ListItemText primary="Login" />
     </ListItemButton>
   </React.Fragment>
-};
+);
 
 export const secondaryListItems = (
   <React.Fragment>
