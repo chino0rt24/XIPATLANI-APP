@@ -143,12 +143,11 @@ function DashboardContent() {
           }}
         >
           <Toolbar />
-        
-        </Box>
-        <Box sx={{ marginLeft:-100, marginRight:.5, backgroundColor:'gray', borderRadius:3, marginTop:7}} >
+          <Box sx={{ marginRight:.5, flex:1, backgroundColor:'gray', borderRadius:3, marginTop:7}} >
         <Outlet/>
-
         </Box>
+        </Box>
+       
       </Box>
     </ThemeProvider>
   );
