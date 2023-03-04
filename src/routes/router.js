@@ -5,6 +5,7 @@ import {
 import Login from "../components/Login";
 import { Dashboard, ListUsers } from "../components";
 import Home from "../components/Home";
+import CLientRegis from "../components/CLientRegis";
 const router = createBrowserRouter([
   {
     path: "/",
@@ -17,6 +18,10 @@ const router = createBrowserRouter([
       {
         path: "users",
         element: <ListUsers/>
+      },
+      {
+        path:"CLientRegis",
+        element:<CLientRegis/>
       },
 
     ]

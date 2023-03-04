@@ -9,4 +9,5 @@ export {default as Checkout} from './AddressForm';
 export {default as Dashboard} from './Dashboard';
 export {default as Home} from './Home';
 export {default as ListUsers} from './ListUsers';
+export {default as CLientRegis} from './CLientRegis';
 
