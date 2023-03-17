@@ -13,6 +13,8 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import useForm from '../components/hooks/useForm';
+import { useNavigate } from 'react-router-dom';
+
 
 
 
@@ -23,6 +25,8 @@ export default function Login() {
   const save = async ()=>{
     console.log(form)
   };
+  const navigate = useNavigate();
+
 
   return (
     <ThemeProvider theme={theme}>
@@ -43,7 +47,7 @@ export default function Login() {
             
           </Avatar>
           <Typography component="h1" variant="h5">
-            Sign in
+            Inicia sesión
           </Typography>
           <Box component="form"  noValidate sx={{ mt: 1 }}>
             <TextField
@@ -51,9 +55,9 @@ export default function Login() {
               required
               fullWidth
               id="email"
-              label="Email Address"
-              name="email"
-              autoComplete="email"
+              label="usuario"
+              name="Usuario"
+              autoComplete="Usuario"
               autoFocus
               onChange={value => onChange(value.target.value,"email")}
 
@@ -62,9 +66,9 @@ export default function Login() {
               margin="normal"
               required
               fullWidth
-              name="password"
-              label="Password"
-              type="password"
+              name="Contraseña"
+              label="Contraseña"
+              type="Contraseña"
               id="password"
               autoComplete="current-password"
               onChange={value => onChange(value.target.value,"password")}
@@ -72,26 +76,29 @@ export default function Login() {
             />
             <FormControlLabel
               control={<Checkbox value="remember" color="primary" />}
-              label="Remember me"
+              label="Recuerdame"
             />
             <Button
               fullWidth
               variant="contained"
               sx={{ mt: 3, mb: 2 }}
-              onClick={() =>save()}
+              onClick={() =>{
+                save();
+                alert("llene los campos para ingresar");
+                navigate('/home');
+              
+              }}
               >
-              Sign In
+              Inicia sesión
             </Button>
             <Grid container>
               <Grid item xs>
                 <Link href="#" variant="body2">
-                  Forgot password?
+                  Olvidaste tu contraseña?
                 </Link>
               </Grid>
               <Grid item>
-                <Link href="#" variant="body2">
-                  {"Don't have an account? Sign Up"}
-                </Link>
+               
               </Grid>
             </Grid>
           </Box>

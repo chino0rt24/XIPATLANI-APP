@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, { useEffect, useState } from 'react';
 import { styled, createTheme, ThemeProvider } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
 import MuiDrawer from '@mui/material/Drawer';
@@ -67,6 +67,13 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
 const mdTheme = createTheme();
 
 const  DashboardContent = () => {
+  const [modal, setModal] = useState({
+    text: '',
+    title: '',
+    visible: false,
+    icon: { name: '' },
+    data: {},
+  });
   const [open, setOpen] = React.useState(true);
   const navigate = useNavigate();
   const toggleDrawer = () => {
@@ -104,8 +111,24 @@ const  DashboardContent = () => {
             >
               XIPATLANI
             </Typography>
-            <IconButton color="inherit">
-              <Badge badgeContent={5} color="secondary">
+            <Typography
+              component="h1"
+              variant="h6"
+              color="inherit"
+              noWrap
+              sx={{ justifyContent: 'flex-end', }}
+            >
+              Bienvenido: Pablo
+            </Typography>
+            <IconButton 
+            color="inherit" 
+            onClick={() =>{
+              alert("no tiene notificaciones");
+             }}
+            >
+         
+              <Badge badgeContent={0} color="secondary">
+              
                 <NotificationsIcon />
               </Badge>
             </IconButton>
@@ -144,7 +167,7 @@ const  DashboardContent = () => {
           }}
         >
           <Toolbar />
-          <Box sx={{ marginRight:.5, flex:1, backgroundColor:'gray', borderRadius:3, marginTop:1}} >
+          <Box sx={{ marginRight:.5, flex:1, borderRadius:3, marginTop:1}} >
         <Outlet/>
         </Box>
         </Box>

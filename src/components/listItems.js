@@ -9,7 +9,7 @@ import GroupsIcon from '@mui/icons-material/Groups';
 import BarChartIcon from '@mui/icons-material/BarChart';
 import PublicIcon from '@mui/icons-material/Public';
 import AssignmentIcon from '@mui/icons-material/Assignment';
-import AssignmentIndIcon from '@mui/icons-material/AssignmentInd';
+import ExitToAppIcon from '@mui/icons-material/ExitToApp';
 
 export const MainListItems = ({navigate}) =>
 {
@@ -45,11 +45,11 @@ export const MainListItems = ({navigate}) =>
         </ListItemIcon>
         <ListItemText primary="Mapa" />
       </ListItemButton>
-      <ListItemButton>
+      <ListItemButton onClick={() => navigate('/login')}>
         <ListItemIcon>
-        <AssignmentIndIcon/>
+        <ExitToAppIcon/>
         </ListItemIcon>
-        <ListItemText primary="Login" />
+        <ListItemText primary="Salir" />
       </ListItemButton>
     </React.Fragment>
   );
