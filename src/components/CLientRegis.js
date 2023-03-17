@@ -7,8 +7,11 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import Card from '@mui/material/Card';
-import Cobros from '../components/Cobros';
+import Paquetes from './Paquetes';
 import useForm from '../components/hooks/useForm';
+import CancelIcon from '@mui/icons-material/Cancel';
+
+import { useNavigate } from 'react-router-dom';
 
 
 
@@ -18,6 +21,7 @@ const theme = createTheme();
 export default function CLientRegis() {
   const [selectedPack,setSelectedPack] = useState(false);
  const { form, onChange } = useForm({  });
+ const navigate = useNavigate();
   const save = async ()=>{
     console.log(form)
   }
@@ -38,13 +42,17 @@ export default function CLientRegis() {
         
         <Card   noValidate sx={{ mt: 1, display:"flex", flexWrap:"wrap" ,justifyContent:"space-around", flex:1, borderRadius:5 ,width: selectedPack !== true ? 550: 750,height:650,}}>
           <Box 
-          sx={{padding:3 , marginInline:4}}
+          sx={{  width:"100%",display:"flex",flexDirection:"row",alignItems:"center"}}
           >
-
+     
          
-          <Typography component="h1" variant="h5">
+          <Typography component="h1" variant="h5" sx={{flex:20, textAlign:"center"}}>
           {selectedPack !== true ? "Registra al nuevo cliente" : "Selecciona el paquete adecuado" }
           </Typography>
+          <CancelIcon
+        sx={{justifySelf:"flex-end",flex:1,alignSelf:"self-start",marginRight:2,marginTop:2}}
+        onClick={() => selectedPack !== true ? navigate('/'): setSelectedPack(false)}     
+      />
           </Box>
       {selectedPack !== true ?
          
@@ -160,7 +168,7 @@ export default function CLientRegis() {
               Siguiente
             </Button> 
             
-            </Box> :  <Cobros form={form}/>
+            </Box> :  <Paquetes form={form}/>
             
          
 

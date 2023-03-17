@@ -3,17 +3,18 @@ import {
   RouterProvider,
 } from "react-router-dom";
 import Login from "../components/Login";
-import { Dashboard, ListUsers } from "../components";
+import { Cobro, Dashboard, ListUsers } from "../components";
 import Home from "../components/Home";
 import CLientRegis from "../components/CLientRegis";
 import Map from "../components/Map";
+
 const router = createBrowserRouter([
   {
     path: "/",
     element: <Dashboard />,
     children: [
       {
-        path: "home",
+        path: "/",
         element: <Home/>
       },
       {
@@ -27,6 +28,9 @@ const router = createBrowserRouter([
       {
         path: "map",
         element: <Map/>
+      },{
+        path: "Cobro",
+        element: <Cobro/>
       },
     
 

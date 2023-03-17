@@ -9,6 +9,7 @@ import TablePagination from '@mui/material/TablePagination';
 import TableRow from '@mui/material/TableRow';
 import ToggleButton from '@mui/material/ToggleButton';
 import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
+import { useNavigate } from 'react-router-dom';
 
 const columns = [
   { id: 'name', label: 'Cliente', minWidth: 170 },
@@ -72,6 +73,7 @@ const rows = [
 const StickyHeadTable = () => {
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(20);
+  const navigate = useNavigate();
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
@@ -98,8 +100,10 @@ const StickyHeadTable = () => {
         aria-label="Platform"
         sx={{alignSelf:'flex-end'}}
       >
-        <ToggleButton value="web">Web</ToggleButton>
-        <ToggleButton value="android">Android</ToggleButton>
+        <ToggleButton value="android"
+        onClick={() => navigate('/CLientRegis')}
+        sx={{marginRight:5}}
+        >Nuevo Cliente</ToggleButton>
       </ToggleButtonGroup>
     );
   }

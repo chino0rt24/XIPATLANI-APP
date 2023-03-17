@@ -85,7 +85,7 @@ export default function Login() {
               onClick={() =>{
                 save();
                 alert("llene los campos para ingresar");
-                navigate('/home');
+                navigate('/');
               
               }}
               >

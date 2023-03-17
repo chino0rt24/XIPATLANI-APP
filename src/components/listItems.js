@@ -15,13 +15,13 @@ export const MainListItems = ({navigate}) =>
 {
   return(
     <React.Fragment>
-      <ListItemButton  onClick={() => navigate('/home')} >
+      <ListItemButton  onClick={() => navigate('/')} >
         <ListItemIcon>
           <DashboardIcon />
         </ListItemIcon>
         <ListItemText primary="INICIO" />
       </ListItemButton>
-      <ListItemButton  onClick={() => navigate('/CLientRegis')} >
+      <ListItemButton  onClick={() => navigate('/Cobro')} >
         <ListItemIcon>
           <PriceChangeIcon />
         </ListItemIcon>
