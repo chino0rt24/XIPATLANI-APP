@@ -68,7 +68,7 @@ export default function Login() {
               fullWidth
               name="Contraseña"
               label="Contraseña"
-              type="Contraseña"
+              type="password"
               id="password"
               autoComplete="current-password"
               onChange={value => onChange(value.target.value,"password")}
