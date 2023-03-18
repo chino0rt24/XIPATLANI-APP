@@ -17,7 +17,7 @@ async function config(URL) {
   
   export const ROUTES = {
 //USER
-
+USER_LOGIN:'login/getlogin',
 
 //PAQUETES
 

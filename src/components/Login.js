@@ -14,9 +14,7 @@ import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import useForm from '../components/hooks/useForm';
 import { useNavigate } from 'react-router-dom';
-
-
-
+import { ApiWallet, ROUTES } from '../Api';
 
 const theme = createTheme();
 
@@ -24,6 +22,19 @@ export default function Login() {
   const { form, onChange } = useForm({  });
   const save = async ()=>{
     console.log(form)
+  };
+
+  const login = async()=>{
+    (await ApiWallet())
+    .post(ROUTES.USER_LOGIN, JSON.stringify({...form}))
+    .then(response=>{
+      localStorage.setItem("user",JSON.stringify(response.data.data.user));
+      navigate('/')
+      console.log(response.data.data.user)
+    })
+    .catch(error => {
+      console.log('ERROR SIGNUP:');
+    });
   };
   const navigate = useNavigate();
 
@@ -54,12 +65,12 @@ export default function Login() {
               margin="normal"
               required
               fullWidth
-              id="email"
+              id="username"
               label="usuario"
               name="Usuario"
               autoComplete="Usuario"
               autoFocus
-              onChange={value => onChange(value.target.value,"email")}
+              onChange={value => onChange(value.target.value,"username")}
 
             />
             <TextField
@@ -84,8 +95,8 @@ export default function Login() {
               sx={{ mt: 3, mb: 2 }}
               onClick={() =>{
                 save();
-                alert("llene los campos para ingresar");
-                navigate('/');
+                // navigate('/');
+                login();
               
               }}
               >

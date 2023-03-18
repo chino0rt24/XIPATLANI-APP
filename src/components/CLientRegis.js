@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect  } from 'react';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
@@ -20,6 +20,17 @@ const theme = createTheme();
 
 export default function CLientRegis() {
   const [selectedPack,setSelectedPack] = useState(false);
+  const [regisClient, setRegisClient] =useState({
+    name:"",
+    lastname:"",
+    phone:0,
+    email:"",
+    cp:0,
+    CiudadLocalidad:{},
+    referencia:"",
+
+  })
+
  const { form, onChange } = useForm({  });
  const navigate = useNavigate();
   const save = async ()=>{
@@ -68,21 +79,25 @@ export default function CLientRegis() {
               autoComplete="Nombre"
               autoFocus
               sx={{width:250}}
-              onChange={value => onChange(value.target.value,"name")
+              // onChange={e => onChange({value,...setRegisClient,name:""})
                 
-              }
+              // }
+              onChange={ (e)=>{
+                setRegisClient({...regisClient, name:e.target.value})
+                }}
+            
             />
+       
                 <TextField
               margin="normal"
               required
-
               id="lasName"
               label="Apellidos"
               name="Apellidos"
               autoComplete="Apellidos"
               autoFocus
               sx={{width:250}}
-              onChange={value => onChange(value.target.value,"lastName")}
+              onChange={e => setRegisClient({...regisClient,lastname:e.target.value})}
 
             />
              <TextField
@@ -95,7 +110,7 @@ export default function CLientRegis() {
               autoComplete="Correo Electronico"
               autoFocus
               sx={{justifyContent:"space-around", marginLeft:1.5, marginRight:1.5}}
-              onChange={value => onChange(value.target.value,"email")}
+              onChange={value => onChange(value,"email")}
 
             />
                 <TextField
@@ -107,7 +122,7 @@ export default function CLientRegis() {
               autoComplete="Telefono"
               autoFocus
               sx={{width:250}}
-              onChange={value => onChange(value.target.value,"phone")}
+              onChange={value => onChange(value,"phone")}
 
             />
                 <TextField
@@ -119,7 +134,7 @@ export default function CLientRegis() {
               autoComplete="Código Postal"
               autoFocus
               sx={{width:250}}
-              onChange={value => onChange(value.target.value,"cp")}
+              onChange={value => onChange(value,"cp")}
             />
                
              <TextField

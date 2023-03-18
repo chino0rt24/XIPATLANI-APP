@@ -118,7 +118,7 @@ const  DashboardContent = () => {
               noWrap
               sx={{ justifyContent: 'flex-end', }}
             >
-              Bienvenido: Pablo
+              Bienvenido: {JSON.parse( localStorage.getItem("user")).Username}
             </Typography>
             <IconButton 
             color="inherit" 
