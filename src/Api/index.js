@@ -1,9 +1,6 @@
 import axios from 'axios';
-import { CacheUtil } from './../utils/cache';
-
-
 export const ENV = 'prod';
-export const WALLET_URL = 'http://192.168.31.148:3000/';
+export const WALLET_URL = 'http://192.168.1.64:2000/';
 
 async function config(URL) {
     return {
@@ -11,7 +8,7 @@ async function config(URL) {
       timeout: 10000,
       headers: {
         'Content-Type': 'application/json',
-        Authorization: 'Bearer ' + (await CacheUtil.getToken()),
+       Authorization: 'Bearer ' + "12987894JHUI12Y7812Y3",
       },
     };
   }
@@ -27,7 +24,9 @@ async function config(URL) {
 
 
 //COBROS
+CREATE_COBRO: 'cobros/createCobro',
 
-
+//customers
+GET_CUSTOMERS: 'customers/getCustomers'
   }
   
