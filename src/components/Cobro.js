@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
@@ -13,25 +13,51 @@ import Autocomplete from '@mui/material/Autocomplete';
 import DatePicker from 'react-date-picker';
 import CancelIcon from '@mui/icons-material/Cancel';
 import { useNavigate } from 'react-router-dom';
-
-
-
-
+import { ApiWallet, ROUTES } from '../Api';
 const theme = createTheme();
-
 
 export default function Cobro() {
   const [selectedPack,setSelectedPack] = useState(false);
   const [value, onChanges] = useState(new Date());
   const navigate = useNavigate();
+  const { form, onChange } = useForm({  });
+  const [customers,setCustomers] = useState([{label:''}])
 
- const { form, onChange } = useForm({  });
-  const save = async ()=>{
-    console.log(form)
+  useEffect(() => {
+    localStorage.setItem('user', JSON.stringify({_id:"sdasdasdawdasd"}) )
+  })
+
+const getCustomers = async(search) => {
+  try {
+    (await ApiWallet())
+    .post(ROUTES.GET_CUSTOMERS, JSON.stringify({search}) )
+    .then(success => {
+      console.log(success.data.data.map(item => item.name));
+      setCustomers(success.data.data.map(item => item.name + ' ' + item.lastname))
+    })
+    .catch(error => {
+      console.log(error);
+    })
+  } catch (error) {
+    console.log(error);
   }
+};
 
+const save = async() => {
+  console.log(localStorage.getItem('user'));
+  const user = JSON.parse(localStorage.getItem('user'));
+
+  console.log({...form, idEmployee:user._id});
+  (await ApiWallet())
+  .post(ROUTES.CREATE_COBRO, JSON.stringify({customer: {...form, idEmployee:user._id}}) )
+  .then(success => {
    
-  
+  })
+  .catch(error => {
+    console.log(error);
+  })
+
+}
 
 
   return (
@@ -39,40 +65,32 @@ export default function Cobro() {
       <Container 
       component="main" 
       maxWidth="sm"
-      
-      > 
-        <CssBaseline />
-    
-        
-        <Card   noValidate sx={{ mt: 1, display:"flex", flexWrap:"wrap" ,justifyContent:"space-around", flex:1, borderRadius:5 ,width: selectedPack !== true ? 550: 750,height:650,}}>
-      
-         
+       > 
+        <CssBaseline />  
+        <Card  noValidate sx={{ mt: 1, display:"flex", flexWrap:"wrap" ,justifyContent:"space-around", flex:1, borderRadius:5 ,width: selectedPack !== true ? 550: 750,height:650,}}>
         <Box
           sx={{flex:1,display:"flex", flexWrap:"wrap" ,flexDirection:"column",alignItems:"center" }}>
-              <CancelIcon
-        sx={{alignSelf:"self-end",marginTop:2, marginRight:2}}
-        onClick={() => navigate('/')}     
-      />
-         
+            <CancelIcon
+            sx={{alignSelf:"self-end",marginTop:2, marginRight:2}}
+            onClick={() => navigate('/')}     
+          />
           <Typography
-        component="h1"
-        variant="h5"
-        sx={{marginTop:5}}
-        >
-            
+          component="h1"
+          variant="h5"
+          sx={{marginTop:5}}
+          >
          Registra el cobro de internet
-          </Typography>
-          
-     
-         
-          
-
-<Autocomplete
+        </Typography>
+    <Autocomplete
       disablePortal
       id="combo-box-demo"
-      options={top100Films}
+      options={customers}
       sx={{ width: 250,marginTop:7 }}
-      renderInput={(params) => <TextField {...params} label="Cliente" />}
+      onInputChange={(event, newInputValue) => {onChange(newInputValue, "name")
+    getCustomers(newInputValue)
+    }}
+      renderInput={(params) =>  <TextField {...params} label="Cliente" 
+      />}
     />
               <TextField
               margin="normal"
@@ -83,42 +101,25 @@ export default function Cobro() {
               autoComplete="Monto"
               autoFocus
               sx={{width:250,marginTop:7}}
-              onChange={value => onChange(value.target.value,"Monto")}
-
+              onChange={value => onChange(value.target.value,"mount")}
             />
             <Box
             sx={{marginTop:6, justifyContent:"center"}}>
-            <DatePicker  onChange={onChanges} value={value} />
+            <DatePicker  onChange={(e) => onChange(e, "date") } value={value} />
             </Box>
-             
             <Button
               type="save"
               variant="contained"
               sx={{ mt: 2, mb: 3, width:200, marginLeft:1,borderRadius:5,marginTop:7 }}
               onClick={() =>{ 
-              save();
-              
+                save()
               }}
               >
-            
               Guardar
             </Button> 
-            
             </Box> 
           </Card>
-        
       </Container>
     </ThemeProvider>
   );}
-  const top100Films = [
-    { label: 'Camerino Ortega', year: 1994 },
-    { label: 'Lidia ortega', year: 1972 },
-    { label: 'Jesus tehuatle', year: 1974 },
-    { label: 'Veronica Garcia', year: 2008 },
-    { label: 'Romario Velazques', year: 1957 },
-    { label: "Alfredo sanchez", year: 1993 },
-    { label: 'Beto  Mezhua', year: 1994 },
-    { label: "Cristobal Amayo", year: 1993 },
-    { label: 'Rafel herndez', year: 1994 },
 
-];
