@@ -12,3 +12,4 @@ export {default as CLientRegis} from './CLientRegis';
 export {default as ListUsers} from './ListUsers';
 export {default as Map} from './Map';
 export {default as Cobro} from './Cobro';
+export {default as SearchPlaces} from './SearchPlaces';
