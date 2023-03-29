@@ -1,6 +1,6 @@
 import axios from 'axios';
 export const ENV = 'prod';
-export const WALLET_URL = 'http://192.168.1.65:2000/';
+export const WALLET_URL = 'http://192.168.31.146:2000/';
 
 async function config(URL) {
     return {
