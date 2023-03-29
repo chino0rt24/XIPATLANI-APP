@@ -114,7 +114,7 @@ export default function CLientRegis() {
             }} >
                 <SearchPlaces
                 setLocationForm={ (value) => onChange(value, "location") }
-                style={{  marginLeft:1.5, marginRight:1.5}}
+                style={{justifyContent:"space-around",  marginLeft:1.5, marginRight:1.5}}
                      />
             </Box>
            
@@ -140,7 +140,7 @@ export default function CLientRegis() {
             <Button
               type="save"
               variant="contained"
-              sx={{ mt: 2, mb: 3, width:200, marginLeft:1,borderRadius:5, }}
+              sx={{ mt: 2, mb: 1, width:200,height:50, marginLeft:1,borderRadius:5, }}
               onClick={() =>{ 
               setSelectedPack(true); 
               save();
@@ -148,7 +148,7 @@ export default function CLientRegis() {
               }}
               >
             
-              Siguiente
+            Siguiente
             </Button> 
             
             </Box> :  <Paquetes form={form}/>
