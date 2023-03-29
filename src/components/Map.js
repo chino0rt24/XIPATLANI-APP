@@ -58,17 +58,6 @@ function Map() {
               <Marker 
           key={Math.random()}
           position={{ lat: item.coordinates.lat, lng: item.coordinates.lng }}>
-               <InfoBox
-        onCloseClick={()=>{}}
-        options={{ closeBoxURL: ``, enableEventPropagation: true }}
-      >
-        <div style={{ backgroundColor: `yellow`, opacity: 0.75, padding: `12px` }}>
-          <div style={{ fontSize: `16px`, fontColor: `#08233B` }}>
-            Hello, Kaohsiung!
-          </div>
-        </div>
-      </InfoBox>
-
           </Marker>)
         })
         }
