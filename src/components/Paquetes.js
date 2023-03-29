@@ -12,7 +12,10 @@ import Typography from '@mui/material/Typography';
 import GlobalStyles from '@mui/material/GlobalStyles';
 import Container from '@mui/material/Container';
 
+import Checkbox from '@mui/material/Checkbox';
+import { ApiWallet, ROUTES } from '../Api';
 
+const label = { inputProps: { 'aria-label': 'Checkbox demo' } };
 
 const tiers = [
   
@@ -50,8 +53,30 @@ const tiers = [
   },
 ];
 
-function PricingContent() {
-  const [selectedPack,setSelectedPack] = useState(false);
+function PricingContent({form}) {
+  const [checked,setChecked] = useState([true, false, false]);
+
+  const handleChange = (event, index) => {
+   let arr = [false, false, false];
+    arr[index] = event.target.checked
+    setChecked(arr);
+  };
+
+  const save = async() => {
+    const indexPack = checked.findIndex(el => el == true);
+    // console.log({...form, package: tiers[indexPack].title});
+    (await ApiWallet())
+    .post(ROUTES.CREATE_CUSTOMER, {...form, package: tiers[indexPack].title} )
+    .then(response => {
+      if(response.data.success){
+        alert("Registro exitoso")
+      }
+    })
+    .catch(error => {
+      console.log(error);
+    })
+  }
+
   return (
     <React.Fragment>
       <GlobalStyles styles={{ ul: { margin: 0, padding: 0, listStyle: 'none' } }} />
@@ -59,7 +84,7 @@ function PricingContent() {
   
       <Container maxWidth="md" component="main">
         <Grid container spacing={5} alignItems="flex-end">
-          {tiers.map((tier) => (
+          {tiers.map((tier, idx) => (
             // Enterprise card is full width at sm breakpoint
             <Grid
               item
@@ -115,9 +140,14 @@ function PricingContent() {
                   </ul>
                 </CardContent>
                 <CardActions>
-                  <Button fullWidth variant={tier.buttonVariant}>
+                  {/* <Button fullWidth variant={tier.buttonVariant}>
                     {tier.buttonText}
-                  </Button>
+                  </Button> */}
+                        <Checkbox {...label} 
+                        checked={checked[idx]}
+                        onChange={e => handleChange(e, idx )}
+                        /> Seleccionar
+
                 </CardActions>
               </Card>
             </Grid>
@@ -129,7 +159,7 @@ function PricingContent() {
               type="save"
               variant="contained"
               sx={{ mt: 2, mb: 1, width:200,height:50, marginLeft:1,borderRadius:5, }}
-             
+              onClick={save}
               >
             
               Guardar
@@ -138,6 +168,6 @@ function PricingContent() {
   );
 }
 
-export default function Pricing() {
-  return <PricingContent />;
+export default function Pricing({form}) {
+  return <PricingContent form={form} />;
 }

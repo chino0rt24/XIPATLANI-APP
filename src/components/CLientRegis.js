@@ -10,13 +10,9 @@ import Card from '@mui/material/Card';
 import Paquetes from './Paquetes';
 import useForm from '../components/hooks/useForm';
 import CancelIcon from '@mui/icons-material/Cancel';
-
 import { useNavigate } from 'react-router-dom';
-
-
-
+import SearchPlaces from './SearchPlaces';
 const theme = createTheme();
-
 
 export default function CLientRegis() {
   const [selectedPack,setSelectedPack] = useState(false);
@@ -25,8 +21,7 @@ export default function CLientRegis() {
     lastname:"",
     phone:0,
     email:"",
-    cp:0,
-    CiudadLocalidad:{},
+    location:{},
     referencia:"",
 
   })
@@ -34,12 +29,7 @@ export default function CLientRegis() {
  const { form, onChange } = useForm({  });
  const navigate = useNavigate();
   const save = async ()=>{
-    console.log(form)
   }
-
-   
-  
-
 
   return (
     <ThemeProvider theme={theme}>
@@ -49,14 +39,10 @@ export default function CLientRegis() {
       sx={{}}
       > 
         <CssBaseline />
-    
-        
         <Card   noValidate sx={{ mt: 1, display:"flex", flexWrap:"wrap" ,justifyContent:"space-around", flex:1, borderRadius:5 ,width: selectedPack !== true ? 550: 750,height:650,}}>
           <Box 
           sx={{  width:"100%",display:"flex",flexDirection:"row",alignItems:"center"}}
           >
-     
-         
           <Typography component="h1" variant="h5" sx={{flex:20, textAlign:"center"}}>
           {selectedPack !== true ? "Registra al nuevo cliente" : "Selecciona el paquete adecuado" }
           </Typography>
@@ -70,7 +56,7 @@ export default function CLientRegis() {
            <Box
           sx={{flex:1,display:"flex", flexWrap:"wrap" ,justifyContent:"space-around", flex:1, }}>
 
-   <TextField
+          <TextField
               margin="normal"
               required
               id="name"
@@ -82,9 +68,8 @@ export default function CLientRegis() {
               // onChange={e => onChange({value,...setRegisClient,name:""})
                 
               // }
-              onChange={ (e)=>{
-                setRegisClient({...regisClient, name:e.target.value})
-                }}
+              onChange={value => onChange(value.target.value,"name")}
+
             
             />
        
@@ -97,7 +82,7 @@ export default function CLientRegis() {
               autoComplete="Apellidos"
               autoFocus
               sx={{width:250}}
-              onChange={e => setRegisClient({...regisClient,lastname:e.target.value})}
+              onChange={value => onChange(value.target.value,"lastname")}
 
             />
              <TextField
@@ -109,8 +94,8 @@ export default function CLientRegis() {
               name="Correo Electronico"
               autoComplete="Correo Electronico"
               autoFocus
-              sx={{justifyContent:"space-around", marginLeft:1.5, marginRight:1.5}}
-              onChange={value => onChange(value,"email")}
+              sx={{justifyContent:"space-around", marginLeft:1.5, width:250, marginRight:1.5}}
+              onChange={value => onChange(value.target.value,"email")}
 
             />
                 <TextField
@@ -121,35 +106,18 @@ export default function CLientRegis() {
               name="Telefono"
               autoComplete="Telefono"
               autoFocus
-              sx={{width:250}}
-              onChange={value => onChange(value,"phone")}
-
-            />
-                <TextField
-              margin="normal"
-              required
-              id="Cp"
-              label="Código Postal"
-              name="Codigo Postal"
-              autoComplete="Código Postal"
-              autoFocus
-              sx={{width:250}}
-              onChange={value => onChange(value,"cp")}
-            />
-               
-             <TextField
-              margin="normal"
-              fullWidth
-              required
-              id="Domicilio"
-              label="Ciudad o Localidad"
-              name="Ciudad o Localidad"
-              autoComplete="Ciudad o Localidad"
-              autoFocus
-              sx={{justifyContent:"space-around", marginLeft:1.5, marginRight:1.5}}
-              onChange={value => onChange(value.target.value,"CiudadLocalidad")}
-
-            />
+              sx={{justifyContent:"space-around", marginLeft:1.5, width:250, marginRight:1.5}}
+              onChange={value => onChange(value.target.value,"phone")}
+            />       
+            <Box sx={{
+              width:"90%",
+            }} >
+                <SearchPlaces
+                setLocationForm={ (value) => onChange(value, "location") }
+                style={{  marginLeft:1.5, marginRight:1.5}}
+                     />
+            </Box>
+           
          
              <TextField
               margin="normal"
@@ -185,8 +153,6 @@ export default function CLientRegis() {
             
             </Box> :  <Paquetes form={form}/>
             
-         
-
 } 
           </Card>
         

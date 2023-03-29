@@ -118,7 +118,7 @@ const  DashboardContent = () => {
               noWrap
               sx={{ justifyContent: 'flex-end', }}
             >
-              Bienvenido: {JSON.parse( localStorage.getItem("user")).Username}
+              Bienvenido: {JSON.parse( localStorage.getItem("user"))?.Username}
             </Typography>
             <IconButton 
             color="inherit" 

@@ -13,9 +13,7 @@ import { RouterProvider } from 'react-router-dom';
 // </body>);
 
 ReactDOM.createRoot(document.getElementById("root")).render(
-    <React.StrictMode>
       <RouterProvider router={router} />
-    </React.StrictMode>
   );
 
 // If you want your app to work offline and load faster, you can change
